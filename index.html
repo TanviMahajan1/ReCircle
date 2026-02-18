@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReCircle - Sustainable Clothing Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D6A4F;
+            --primary-light: #40916C;
+            --bg: #FEFAE0;
+            --dark: #1B2A22;
+            --gold: #E9C46A;
+            --orange: #F4A261;
+            --pale-green: #D8F3DC;
+            --border-green: #B7E4C7;
+            --green: #2D6A4F;
+            --gray: #6B7280;
+            --green-pale: #B7E4C7;
+            --green-bg: rgba(45, 106, 79, 0.08);
+            --text: #1B2A22;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+        h1, h2, h3, h4, .heading-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-nav {
+            background: rgba(254, 250, 224, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .btn-shadow {
+            box-shadow: 0 4px 14px 0 rgba(45, 106, 79, 0.39);
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.4); }
+        }
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .step-card:not(:last-child)::after {
+          content: '→';
+          position: absolute;
+          right: -1.5rem;
+          top: 3.5rem;
+          color: var(--border-green);
+          font-size: 1.5rem;
+          font-weight: 800;
+          display: none;
+        }
+        @media (min-width: 768px) {
+            .step-card:not(:last-child)::after {
+                display: block;
+            }
+        }
+
+        /* Redesigned Calculator Styles */
+        .calc-toggle {
+          display: flex;
+          background: rgba(255,255,255,0.08);
+          border-radius: 50px;
+          padding: 5px;
+          margin: 0 auto 2rem;
+          width: fit-content;
+          gap: 4px;
+        }
+        .toggle-btn {
+          padding: 0.6rem 1.5rem;
+          border-radius: 50px;
+          border: none;
+          font-family: inherit;
+          font-size: 0.9rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s;
+          background: transparent;
+          color: rgba(255,255,255,0.5);
+        }
+        .toggle-btn.active-brand {
+          background: #F4A261;
+          color: white;
+          box-shadow: 0 4px 15px rgba(244,162,97,0.4);
+        }
+        .toggle-btn.active-ngo {
+          background: #2D6A4F;
+          color: white;
+          box-shadow: 0 4px 15px rgba(45,106,79,0.4);
+        }
+        .calc-results-panel {
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .calc-results-panel.hidden {
+          opacity: 0;
+          transform: translateY(8px);
+          pointer-events: none;
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+        }
+        .calc-results-panel.visible {
+          opacity: 1;
+          transform: translateY(0);
+          position: relative;
+        }
+
+        /* NGO Modal Styles */
+        .ngo-modal-overlay {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0,0,0,0.88);
+          backdrop-filter: blur(10px);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+        .ngo-modal-overlay.open {
+          opacity: 1;
+          pointer-events: all;
+        }
+        .ngo-modal {
+          background: white;
+          border-radius: 24px;
+          max-width: 650px;
+          width: 90%;
+          max-height: 85vh;
+          overflow-y: auto;
+          position: relative;
+          transform: scale(0.95);
+          transition: transform 0.3s ease;
+        }
+        .ngo-modal-overlay.open .ngo-modal {
+          transform: scale(1);
+        }
+
+        .close-modal {
+          position: absolute;
+          top: 1.5rem;
+          right: 1.5rem;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(0,0,0,0.06);
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          color: var(--dark);
+          transition: background 0.2s;
+          z-index: 10;
+        }
+        .close-modal:hover {
+          background: rgba(0,0,0,0.12);
+        }
+
+        .ngo-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .ngo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(45,106,79,0.2);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

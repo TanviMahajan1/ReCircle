@@ -1,0 +1,7 @@
+{
+  "name": "ReCircle - Sustainable Clothing Exchange",
+  "description": "A platform for donating or exchanging used clothes with end-to-end logistics, AI-powered clothing analysis, and brand vouchers.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
