@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Truck, Package, ShieldCheck, Heart, BarChart3, Smartphone } from 'lucide-react';
 
@@ -6,13 +5,13 @@ export default function HowItWorksPage() {
   const steps = [
     {
       title: "Book Online",
-      desc: "Schedule a pickup on our app or website. Choose your path: Donate to NGO or Brand Exchange.",
+      desc: "Schedule a pickup on our app or website. Choose your path: Donate to NGO or Brand Exchange. Price varies by location.",
       icon: Smartphone,
       color: "bg-blue-100 text-blue-600"
     },
     {
       title: "Pay Logistics Fee",
-      desc: "A small fee of ₹50 covers our fuel, rider wages, and sorting operations. No hidden costs.",
+      desc: "A small fee of ₹100-200 covers our fuel, rider wages, and sorting operations. No hidden costs.",
       icon: ShieldCheck,
       color: "bg-amber-100 text-amber-600"
     },
@@ -67,13 +66,13 @@ export default function HowItWorksPage() {
 
         <section className="bg-emerald-900 rounded-[3rem] p-12 text-white flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-bold">Why the ₹50 Fee?</h2>
+            <h2 className="text-3xl font-bold">Why the ₹100-200 Fee?</h2>
             <p className="text-emerald-100 leading-relaxed text-lg">
-              We are committed to fair labor practices. The ₹50 fee ensures our riders are paid fairly, fuel costs are covered, and our sorting facilities maintain high hygiene standards. This transparency is what makes ReCircle sustainable and reliable.
+              We are committed to fair labor practices. The ₹100-200 fee ensures our riders are paid fairly, fuel costs are covered, and our sorting facilities maintain high hygiene standards. This transparency is what makes ReCircle sustainable and reliable.
             </p>
           </div>
           <div className="flex-shrink-0 bg-white/10 p-8 rounded-[2rem] border border-white/10 backdrop-blur-sm text-center">
-            <div className="text-5xl font-black mb-2">₹50</div>
+            <div className="text-5xl font-black mb-2">₹100+</div>
             <div className="text-sm font-bold text-emerald-300 tracking-widest uppercase">Per Pickup</div>
           </div>
         </section>

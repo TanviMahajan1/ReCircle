@@ -2,26 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Heart, 
-  Ticket, 
-  Leaf, 
-  CheckCircle, 
   ArrowRight,
-  TrendingUp,
-  Wind,
-  Droplets,
-  Package,
-  Truck,
   ShoppingBag,
-  Users,
-  BarChart3,
-  Zap,
-  Globe,
-  Trash2,
   ArrowRightCircle,
-  Sparkles,
-  Tag,
-  Star,
-  X
+  MapPin,
+  CheckCircle,
+  Package,
+  Truck
 } from 'lucide-react';
 
 const NGO_DETAILS: Record<string, any> = {
@@ -143,48 +130,6 @@ const CountUp = ({ end, duration = 2000, suffix = "" }: { end: number, duration?
   return <span ref={nodeRef}>{count.toLocaleString()}{suffix}</span>;
 };
 
-const LiveImpactCounter = () => (
-  <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-[310px] border border-[#B7E4C7]/20 float-anim overflow-hidden relative">
-    <div className="bg-[#1B2A22] text-white px-5 py-3 flex justify-between items-center">
-      <div className="flex items-center gap-2">
-        <div className="w-2 h-2 bg-emerald-500 rounded-full pulse-dot"></div>
-        <span className="font-bold text-[11px] uppercase tracking-wider">Live Impact</span>
-      </div>
-      <span className="text-[10px] opacity-60">Updated 1h ago</span>
-    </div>
-
-    <div className="p-5 space-y-4">
-      <div>
-        <h4 className="text-[0.7rem] letter-spacing-[2px] text-gray-400 font-bold uppercase mb-2">Today</h4>
-        <div className="flex items-center gap-3 py-2 border-b border-black/5 font-extrabold text-lg text-[#1B2A22]">
-          <span>🧺</span> <CountUp end={47} /> clothes donated
-        </div>
-        <div className="flex items-center gap-3 py-2 border-b border-black/5 font-extrabold text-lg text-[#1B2A22]">
-          <span>🚚</span> <CountUp end={12} /> pickups completed
-        </div>
-      </div>
-
-      <div>
-        <h4 className="text-[0.7rem] letter-spacing-[2px] text-gray-400 font-bold uppercase mb-2">This Week</h4>
-        <div className="flex items-center gap-3 py-2 border-b border-black/5 font-extrabold text-lg text-[#1B2A22]">
-          <span>👕</span> <CountUp end={312} /> collected
-        </div>
-        <div className="flex items-center gap-3 py-2 border-b border-black/5 font-extrabold text-lg text-[#2D6A4F]">
-          <span>🤝</span> <CountUp end={189} /> → NGOs
-        </div>
-        <div className="flex items-center gap-3 py-2 border-b border-black/5 font-extrabold text-lg text-[#F4A261]">
-          <span>🛍️</span> <CountUp end={123} /> → Brands
-        </div>
-      </div>
-    </div>
-
-    <Link to="/donate" className="bg-[#D8F3DC] text-[#2D6A4F] px-5 py-3 block font-bold text-[0.82rem] hover:bg-[#B7E4C7] transition-colors flex items-center justify-between">
-      <span>Join 1,200+ donors today</span>
-      <ArrowRight size={14} />
-    </Link>
-  </div>
-);
-
 const Hero = () => (
   <section className="relative overflow-hidden bg-[#FEFAE0] py-16 md:py-24">
     <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -204,134 +149,61 @@ const Hero = () => (
           </Link>
         </div>
       </div>
-
       <div className="relative flex justify-center">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-emerald-100/30 rounded-full blur-3xl -z-10"></div>
-        <LiveImpactCounter />
+        <div className="bg-white rounded-[24px] shadow-2xl p-6 w-full max-w-[310px] border border-[#B7E4C7]/20 float-anim overflow-hidden">
+           <h4 className="font-bold text-xs uppercase tracking-widest text-[#2D6A4F] mb-4">Live Impact</h4>
+           <div className="space-y-4">
+             <div className="flex justify-between items-center border-b border-stone-100 pb-2">
+               <span className="text-xs font-semibold opacity-60">Clothes Collected</span>
+               <span className="font-black text-lg text-[#1B2A22]"><CountUp end={1240} /></span>
+             </div>
+             <div className="flex justify-between items-center border-b border-stone-100 pb-2">
+               <span className="text-xs font-semibold opacity-60">Water Saved</span>
+               <span className="font-black text-lg text-[#2D6A4F]"><CountUp end={4200} suffix="L" /></span>
+             </div>
+             <div className="flex justify-between items-center">
+               <span className="text-xs font-semibold opacity-60">Families Helped</span>
+               <span className="font-black text-lg text-[#F4A261]"><CountUp end={85} /></span>
+             </div>
+           </div>
+        </div>
       </div>
     </div>
   </section>
 );
 
-const HowItWorks = () => {
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center space-y-3 mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">How ReCircle Works</h2>
-          <p className="text-[#1B2A22]/50 max-w-lg mx-auto font-medium text-sm">From your doorstep to impact — we handle everything in between.</p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-12 items-stretch">
-          <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] card-hover transition-all relative group flex flex-col h-full border border-transparent hover:border-[#B7E4C7]">
-            <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6 heading-font">01</div>
-            <div className="flex-1 space-y-4">
-              <h3 className="text-2xl font-bold heading-font text-[#1B2A22]">Book Your Pickup</h3>
-              <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
-                Schedule a convenient time slot in under 2 minutes. Pack your used clothes in any bag at home. Final price shown after entering your pin code.
-              </p>
-              <div className="pt-2">
-                <span className="bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">₹100-200 based on location</span>
-                <p className="text-[10px] text-[#1B2A22]/40 font-bold mt-2 uppercase tracking-tighter">UPI · Cards · Net Banking accepted</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] card-hover transition-all relative group flex flex-col h-full border border-transparent hover:border-[#B7E4C7]">
-            <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6 heading-font">02</div>
-            <div className="flex-1 space-y-4">
-              <h3 className="text-2xl font-bold heading-font text-[#1B2A22]">Pickup & Delivery</h3>
-              <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
-                Our driver arrives at your doorstep within 48 hours, collects your bag and delivers directly — to our brand partners or NGO partners based on your choice.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                   <span className="bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Within 48 hrs</span>
-                   <p className="text-[10px] text-[#1B2A22]/40 font-bold uppercase tracking-tighter">Real-time tracking via SMS</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] card-hover transition-all relative group flex flex-col h-full border border-transparent hover:border-[#B7E4C7]">
-            <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6 heading-font">03</div>
-            <div className="flex-1 space-y-4">
-              <h3 className="text-2xl font-bold heading-font text-[#1B2A22]">Earn After Delivery</h3>
-              <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
-                Once clothes are successfully delivered and quality-checked, you earn instantly. No delays, no hidden deductions.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                   <span className="bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Within 3 days</span>
-                   <p className="text-[10px] text-[#1B2A22]/40 font-bold uppercase tracking-tighter">Quality check ensures fair earnings</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const EnhancedKPIs = () => (
-  <section className="py-24 bg-white">
+const HowItWorks = () => (
+  <section className="py-20 bg-white">
     <div className="max-w-7xl mx-auto px-6">
       <div className="text-center space-y-3 mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">ReCircle by the Numbers</h2>
-        <p className="text-[#1B2A22]/50 max-w-lg mx-auto font-medium text-sm">Every pickup creates a ripple — for people, for the planet, and for your wallet.</p>
+        <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">How ReCircle Works</h2>
+        <p className="text-[#1B2A22]/50 max-w-lg mx-auto font-medium text-sm">From your doorstep to impact — we handle everything in between.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-6 mb-8">
-        <div className="bg-white p-8 rounded-[20px] shadow-sm border-l-4 border-l-[#2D6A4F] hover:-translate-y-1 transition-transform h-full">
-          <div className="text-[2.2rem] font-extrabold text-[#2D6A4F] heading-font mb-2">🧺 <CountUp end={12400} suffix="+" /></div>
-          <h4 className="font-bold text-lg text-[#1B2A22] mb-1">Clothes Collected</h4>
-          <p className="text-xs text-stone-400 font-medium">Total bags picked up from homes</p>
+      <div className="grid md:grid-cols-3 gap-12">
+        <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] border border-transparent hover:border-[#B7E4C7] transition-all group">
+          <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6">01</div>
+          <h3 className="text-2xl font-bold mb-4">Book Your Pickup</h3>
+          <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
+            Schedule a convenient time slot in under 2 minutes. Pack your used clothes in any bag at home. Final price shown after entering your pin code.
+          </p>
+          <div className="mt-4 bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block">
+            ₹100-200 based on location
+          </div>
         </div>
-        
-        <div className="hidden md:block text-2xl text-stone-300 opacity-40 font-bold">→</div>
-
-        <div className="bg-[#D8F3DC] p-8 rounded-[20px] shadow-sm border-l-4 border-l-[#2D6A4F] hover:-translate-y-1 transition-transform h-full relative">
-          <span className="absolute top-4 right-4 bg-[#2D6A4F] text-white px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">58% of total</span>
-          <div className="text-[2.2rem] font-extrabold text-[#2D6A4F] heading-font mb-2">🤝 <CountUp end={7600} suffix="+" /></div>
-          <h4 className="font-bold text-lg text-[#1B2A22] mb-1">Delivered to NGOs</h4>
-          <p className="text-xs text-[#2D6A4F]/60 font-medium">Goonj, Feeding India & partners</p>
+        <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] border border-transparent hover:border-[#B7E4C7] transition-all">
+          <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6">02</div>
+          <h3 className="text-2xl font-bold mb-4">Pickup & Delivery</h3>
+          <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
+            Our driver arrives at your doorstep within 48 hours, collects your bag and delivers directly to our partners.
+          </p>
         </div>
-
-        <div className="hidden md:block text-2xl text-stone-300 opacity-40 font-bold">→</div>
-
-        <div className="bg-[#FFF3E0] p-8 rounded-[20px] shadow-sm border-l-4 border-l-[#F4A261] hover:-translate-y-1 transition-transform h-full relative">
-          <span className="absolute top-4 right-4 bg-[#F4A261] text-white px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">42% of total</span>
-          <div className="text-[2.2rem] font-extrabold text-[#F4A261] heading-font mb-2">🛍️ <CountUp end={4800} suffix="+" /></div>
-          <h4 className="font-bold text-lg text-[#1B2A22] mb-1">Delivered to Brands</h4>
-          <p className="text-xs text-[#F4A261]/60 font-medium">H&M, Zara, Uniqlo, Levi's</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-6">
-        <div className="bg-white p-7 rounded-[20px] shadow-sm hover:-translate-y-1 transition-transform border border-black/5">
-          <div className="text-2xl font-extrabold text-[#2D6A4F] heading-font mb-1">🚚 <CountUp end={890} suffix="+" /></div>
-          <h4 className="font-bold text-sm text-[#1B2A22]">Total Pickups Completed</h4>
-          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-tight">Across 3 cities</p>
-        </div>
-
-        <div className="bg-[#1B2A22] p-7 rounded-[20px] shadow-sm hover:-translate-y-1 transition-transform text-white">
-          <div className="text-2xl font-extrabold text-white heading-font mb-1">🌱 <CountUp end={6} suffix="" /> months</div>
-          <h4 className="font-bold text-sm">Since Launch</h4>
-          <p className="text-[10px] opacity-40 font-bold uppercase tracking-tight">Growing 40% MoM</p>
-        </div>
-
-        <div className="bg-white p-7 rounded-[20px] shadow-sm hover:-translate-y-1 transition-transform border border-black/5">
-          <div className="text-2xl font-extrabold text-[#2D6A4F] heading-font mb-1">💰 ₹<CountUp end={420000} suffix="+" /></div>
-          <h4 className="font-bold text-sm text-[#1B2A22]">Paid to Donors</h4>
-          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-tight">Directly via UPI transfers</p>
-        </div>
-
-        <div className="bg-white p-7 rounded-[20px] shadow-sm hover:-translate-y-1 transition-transform border border-black/5 relative">
-          <span className="absolute top-4 right-4 bg-emerald-100 text-[#2D6A4F] px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest">Eco Impact</span>
-          <div className="text-2xl font-extrabold text-[#2D6A4F] heading-font mb-1">🌍 <CountUp end={2.1} suffix="T" /></div>
-          <h4 className="font-bold text-sm text-[#1B2A22]">CO₂ Emissions Avoided</h4>
-          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-tight">Eq. to planting 340 trees</p>
+        <div className="step-card bg-[#FEFAE0] p-8 rounded-[2rem] border border-transparent hover:border-[#B7E4C7] transition-all">
+          <div className="text-[#40916C] font-extrabold text-[3.5rem] leading-none mb-6">03</div>
+          <h3 className="text-2xl font-bold mb-4">Earn After Delivery</h3>
+          <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
+            Once clothes are successfully delivered and quality-checked, you earn vouchers or impact points instantly.
+          </p>
         </div>
       </div>
     </div>
@@ -342,141 +214,71 @@ const CalculatorUI = () => {
   const [bags, setBags] = useState(2);
   const [activePath, setActivePath] = useState<'brand' | 'ngo'>('brand');
 
-  const itemsCount = bags * 5;
+  const itemsCount = bags * 12;
   const brandCoupon = bags * 150;
   const avgFee = 150;
   const brandNet = brandCoupon - avgFee;
 
   const ngoCredits = bags * 200;
-  const ngoCreditCashValue = Math.round(ngoCredits / 10);
   const ngoTaxBenefit = bags * 100;
+  const ngoCreditValue = ngoCredits / 10;
 
   return (
     <div className="bg-[#1B2A22] text-white p-8 md:p-12 rounded-[3.5rem] shadow-2xl border border-white/5 space-y-10">
       <div className="calc-toggle">
-        <button 
-          onClick={() => setActivePath('brand')}
-          className={`toggle-btn ${activePath === 'brand' ? 'active-brand' : ''}`}
-        >
-          🛍️ Brand Exchange
-        </button>
-        <button 
-          onClick={() => setActivePath('ngo')}
-          className={`toggle-btn ${activePath === 'ngo' ? 'active-ngo' : ''}`}
-        >
-          🤝 NGO Donation
-        </button>
+        <button onClick={() => setActivePath('brand')} className={`toggle-btn ${activePath === 'brand' ? 'active-brand' : ''}`}>🛍️ Brand Exchange</button>
+        <button onClick={() => setActivePath('ngo')} className={`toggle-btn ${activePath === 'ngo' ? 'active-ngo' : ''}`}>🤝 NGO Donation</button>
       </div>
 
       <div className="space-y-6 max-w-2xl mx-auto">
         <div className="flex justify-between items-end">
-          <span className="text-lg font-bold heading-font opacity-80">How many bags are you donating?</span>
+          <span className="text-lg font-bold opacity-80">Donation Bags</span>
           <div className="text-right">
-            <span className="text-5xl font-extrabold text-[#F4A261] heading-font">{bags}</span>
-            <p className="text-[0.85rem] font-medium opacity-60 mt-1">{bags} bags ≈ approx {itemsCount} clothes</p>
+            <span className="text-5xl font-extrabold text-[#F4A261]">{bags}</span>
+            <p className="text-[0.85rem] font-medium opacity-60 mt-1">~{itemsCount} clothes</p>
           </div>
         </div>
-        <input 
-          type="range" min="1" max="10" step="1" 
-          value={bags} 
-          onChange={(e) => setBags(parseInt(e.target.value))}
-          className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-[#F4A261]"
-        />
+        <input type="range" min="1" max="10" step="1" value={bags} onChange={(e) => setBags(parseInt(e.target.value))} className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-[#F4A261]" />
       </div>
 
-      <div className="relative min-h-[340px] md:min-h-[300px]">
-        <div className={`calc-results-panel ${activePath === 'brand' ? 'visible' : 'hidden'}`}>
-          <div className="bg-[rgba(244,162,97,0.08)] border border-[rgba(244,162,97,0.2)] rounded-[20px] p-8">
-            <div className="flex items-center gap-2 mb-6">
-              <ShoppingBag className="text-[#F4A261]" size={20} />
-              <div>
-                <h3 className="font-bold text-base">Brand Exchange Results</h3>
-                <p className="text-[0.82rem] opacity-50">for {bags} bags</p>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">🎟️</div>
-                <div className="text-[1.4rem] font-extrabold text-[#E9C46A]">₹{brandCoupon}</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Coupon Value</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">📦</div>
-                <div className="text-[1.4rem] font-extrabold text-[#E9C46A]">~{itemsCount}</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Clothes items</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">💸</div>
-                <div className="text-[1.4rem] font-extrabold opacity-50">−₹100-200</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Pickup fee*</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">🎉</div>
-                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{brandNet}*</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Net value (avg)</div>
-              </div>
-            </div>
-            
-            <p className="text-center text-[0.78rem] opacity-40 mt-6">
-              Coupon delivered via SMS within 7 days • Valid at H&M · Zara · Uniqlo · Levi's
-            </p>
+      <div className="relative min-h-[340px]">
+        {activePath === 'brand' ? (
+          <div className="bg-[rgba(244,162,97,0.08)] border border-[rgba(244,162,97,0.2)] rounded-[20px] p-8 animate-in fade-in zoom-in-95">
+             <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/5 p-4 rounded-xl">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Coupon Value</p>
+                  <p className="text-2xl font-black text-[#F4A261]">₹{brandCoupon}</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Pickup Fee</p>
+                  <p className="text-2xl font-black text-white/40">−₹100-200*</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl col-span-2 text-center">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Net Value (Avg)</p>
+                  <p className="text-4xl font-black text-[#6FCF97]">₹{brandNet}*</p>
+                </div>
+             </div>
           </div>
-        </div>
-
-        <div className={`calc-results-panel ${activePath === 'ngo' ? 'visible' : 'hidden'}`}>
-          <div className="bg-[rgba(45,106,79,0.08)] border border-[rgba(45,106,79,0.3)] rounded-[20px] p-8">
-            <div className="flex items-center gap-2 mb-6">
-              <Heart className="text-[#B7E4C7]" size={20} />
-              <div>
-                <h3 className="font-bold text-base">NGO Donation Results</h3>
-                <p className="text-[0.82rem] opacity-50">for {bags} bags</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">⭐</div>
-                <div className="text-[1.4rem] font-extrabold text-[#B7E4C7]">{ngoCredits} pts</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Credits earned</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">🧾</div>
-                <div className="text-[1.4rem] font-extrabold text-[#E9C46A]">~₹{ngoTaxBenefit}</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Tax benefit (est. 80G)</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">💸</div>
-                <div className="text-[1.4rem] font-extrabold opacity-50">−₹100-200</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Pickup fee*</div>
-              </div>
-              <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">💰</div>
-                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{ngoCreditCashValue}*</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Credit cash value</div>
-              </div>
-            </div>
-
-            <p className="text-center text-[0.78rem] opacity-40 mt-6 italic">
-              Credits redeemable for cash or pickup • Tax benefit is estimated, consult CA
-            </p>
+        ) : (
+          <div className="bg-[rgba(45,106,79,0.08)] border border-[rgba(45,106,79,0.3)] rounded-[20px] p-8 animate-in fade-in zoom-in-95">
+             <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/5 p-4 rounded-xl">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Impact Credits</p>
+                  <p className="text-2xl font-black text-[#B7E4C7]">{ngoCredits}</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Tax Benefit (80G)</p>
+                  <p className="text-2xl font-black text-[#E9C46A]">₹{ngoTaxBenefit}</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl col-span-2 text-center">
+                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Credit Cash Value</p>
+                  <p className="text-4xl font-black text-[#6FCF97]">₹{ngoCreditValue}*</p>
+                </div>
+             </div>
           </div>
-        </div>
+        )}
       </div>
-
-      <p className="text-center text-[0.75rem] opacity-30 mt-8 italic">
-        * Exact fee depends on your location. See price at checkout. 
-        Estimates based on average clothing quality.
-      </p>
-
-      <div className="pt-8 flex justify-center">
-        <Link 
-          to="/donate" 
-          className="bg-[#2D6A4F] hover:bg-emerald-600 px-12 py-5 rounded-full font-bold text-lg shadow-2xl transition-all active:scale-95 flex items-center gap-3"
-        >
-          Book Your {activePath === 'brand' ? 'Exchange' : 'Donation'} Now <ArrowRightCircle size={24} />
-        </Link>
-      </div>
+      <p className="text-center text-[0.7rem] opacity-30 italic mt-4">*Exact fee depends on your location. See price at checkout.</p>
     </div>
   );
 };
@@ -484,40 +286,11 @@ const CalculatorUI = () => {
 const PartnerSection = ({ showToast }: { showToast: (m: string) => void }) => {
   const [partnerType, setPartnerType] = useState<'brand' | 'ngo'>('brand');
 
-  const handleBrandSubmit = (e: React.FormEvent) => {
+  const handlePartnerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const inputs = form.querySelectorAll('input[required], select[required]');
-    let isValid = true;
-    inputs.forEach(input => {
-      if (!(input as any).value) isValid = false;
-    });
-    
-    if (!isValid) {
-      alert('Please fill in all required fields marked with *');
-      return;
-    }
-    
-    showToast('✅ Brand application submitted! We\'ll reach out soon.');
-    form.reset();
-  };
-
-  const handleNGOSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const inputs = form.querySelectorAll('input[required], select[required]');
-    let isValid = true;
-    inputs.forEach(input => {
-      if (!(input as any).value) isValid = false;
-    });
-
-    if (!isValid) {
-      alert('Please fill in all required fields marked with *');
-      return;
-    }
-
-    showToast('✅ NGO application submitted! We\'ll reach out soon.');
-    form.reset();
+    const type = partnerType.toUpperCase();
+    showToast(`✅ ${type} application submitted! We'll reach out soon.`);
+    (e.target as HTMLFormElement).reset();
   };
 
   return (
@@ -528,160 +301,84 @@ const PartnerSection = ({ showToast }: { showToast: (m: string) => void }) => {
           <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">Partner With Us</h2>
           <p className="text-[#1B2A22]/50 font-medium text-sm max-w-xl mx-auto">Whether you're a brand committed to sustainability or an NGO serving communities — let's collaborate.</p>
         </div>
-        
-        <div className="calc-toggle">
-          <button 
-            className={`partner-tab ${partnerType === 'brand' ? 'active' : ''}`} 
-            onClick={() => setPartnerType('brand')}
-          >
-            🛍️ I'm a Brand
-          </button>
-          <button 
-            className={`partner-tab ${partnerType === 'ngo' ? 'active' : ''}`} 
-            onClick={() => setPartnerType('ngo')}
-          >
-            🤝 I'm an NGO
-          </button>
+
+        <div className="flex bg-[#FEFAE0] rounded-full p-1.5 w-fit mx-auto mb-12 gap-1 shadow-inner border border-stone-200">
+           <button onClick={() => setPartnerType('brand')} className={`partner-tab ${partnerType === 'brand' ? 'active' : ''}`}>🛍️ I'm a Brand</button>
+           <button onClick={() => setPartnerType('ngo')} className={`partner-tab ${partnerType === 'ngo' ? 'active' : ''}`}>🤝 I'm an NGO</button>
         </div>
 
-        {partnerType === 'brand' ? (
-          <div className="max-w-[800px] mx-auto bg-[#FEFAE0] rounded-[2.5rem] p-8 md:p-12 border border-black/5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-xl font-bold text-[#1B2A22] mb-1">Brand Partnership Application</h3>
-            <p className="text-xs text-[#1B2A22]/50 mb-8">Join brands like H&M, Zara, and Levi's in the circular fashion movement.</p>
-            
-            <form onSubmit={handleBrandSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label">Brand Name *</label>
-                  <input type="text" required className="form-input" placeholder="Your brand name" />
+        <div className="max-w-[700px] mx-auto bg-[#FEFAE0] rounded-[2.5rem] p-10 md:p-12 border border-black/5">
+          {partnerType === 'brand' ? (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h3 className="text-xl font-bold text-[#1B2A22] mb-1">Brand Partnership Application</h3>
+              <p className="text-xs text-stone-500 mb-8">Join brands like H&M, Zara, and Levi's in the circular fashion movement.</p>
+              <form className="space-y-4" onSubmit={handlePartnerSubmit}>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Brand Name *</label>
+                    <input type="text" required className="form-input" placeholder="Your brand name" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Industry *</label>
+                    <select className="form-select" required>
+                      <option value="">Select industry</option>
+                      <option>Fashion & Apparel</option>
+                      <option>Footwear</option>
+                      <option>Accessories</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Contact Person *</label>
+                    <input type="text" required className="form-input" placeholder="Full name" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Email *</label>
+                    <input type="email" required className="form-input" placeholder="contact@brand.com" />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Industry *</label>
-                  <select required className="form-select">
-                    <option value="">Select industry</option>
-                    <option>Fashion & Apparel</option>
-                    <option>Footwear</option>
-                    <option>Accessories</option>
-                    <option>Home Textiles</option>
-                    <option>Other</option>
+                  <label className="form-label">Stores in India</label>
+                  <select className="form-select">
+                    <option>1-5 stores</option>
+                    <option>6-20 stores</option>
+                    <option>21-50 stores</option>
+                    <option>50+ stores</option>
                   </select>
                 </div>
-              </div>
-              
-              <div className="form-row">
+                <button type="submit" className="form-submit">🛍️ Submit Brand Application</button>
+              </form>
+            </div>
+          ) : (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h3 className="text-xl font-bold text-[#1B2A22] mb-1">NGO Partnership Application</h3>
+              <p className="text-xs text-stone-500 mb-8">Join NGOs in receiving quality clothing donations directly from ReCircle donors.</p>
+              <form className="space-y-4" onSubmit={handlePartnerSubmit}>
                 <div className="form-group">
-                  <label className="form-label">Contact Person Name *</label>
-                  <input type="text" required className="form-input" placeholder="Full name" />
+                  <label className="form-label">NGO Name *</label>
+                  <input type="text" required className="form-input" placeholder="Your organization name" />
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Reg Number *</label>
+                    <input type="text" required className="form-input" placeholder="12A / 80G" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Year Est *</label>
+                    <input type="number" required className="form-input" placeholder="2015" />
+                  </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Designation *</label>
-                  <input type="text" required className="form-input" placeholder="e.g., Sustainability Manager" />
-                </div>
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label">Email *</label>
-                  <input type="email" required className="form-input" placeholder="contact@brand.com" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Phone *</label>
-                  <input type="tel" required className="form-input" placeholder="+91 98765 43210" />
-                </div>
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label">Number of Stores in India *</label>
-                <select required className="form-select">
-                  <option value="">Select store count</option>
-                  <option>1-5 stores</option>
-                  <option>6-20 stores</option>
-                  <option>21-50 stores</option>
-                  <option>50+ stores</option>
-                  <option>Online only</option>
-                </select>
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label">Partnership Interest *</label>
-                <div className="flex flex-col gap-2 mt-2">
-                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
-                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
-                    <span>In-store clothing collection program</span>
-                  </label>
-                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
-                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
-                    <span>Provide discount coupons for donors</span>
-                  </label>
-                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
-                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
-                    <span>ESG reporting and sustainability metrics</span>
-                  </label>
-                </div>
-              </div>
-              
-              <button type="submit" className="form-submit">
-                🛍️ Submit Brand Application
-              </button>
-            </form>
-          </div>
-        ) : (
-          <div className="max-w-[800px] mx-auto bg-[#D8F3DC]/30 rounded-[2.5rem] p-8 md:p-12 border border-[#2D6A4F]/10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h3 className="text-xl font-bold text-[#1B2A22] mb-1">NGO Partnership Application</h3>
-            <p className="text-xs text-[#1B2A22]/50 mb-8">Join NGOs like Goonj, Feeding India, and HelpAge India in receiving quality clothing donations.</p>
-            
-            <form onSubmit={handleNGOSubmit}>
-              <div className="form-group">
-                <label className="form-label">NGO Name *</label>
-                <input type="text" required className="form-input" placeholder="Your organization name" />
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label">Registration Number *</label>
-                  <input type="text" required className="form-input" placeholder="12A / 80G / Trust Reg." />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Year Established *</label>
-                  <input type="number" required className="form-input" placeholder="e.g., 2015" />
-                </div>
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label">Email *</label>
+                  <label className="form-label">Contact Email *</label>
                   <input type="email" required className="form-input" placeholder="contact@ngo.org" />
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Phone *</label>
-                  <input type="tel" required className="form-input" placeholder="+91 98765 43210" />
-                </div>
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label">Primary Cause *</label>
-                <select required className="form-select">
-                  <option value="">Select primary cause</option>
-                  <option>Poverty & Livelihood</option>
-                  <option>Education</option>
-                  <option>Healthcare</option>
-                  <option>Elderly Care</option>
-                  <option>Disaster Relief</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Tell Us About Your Work *</label>
-                <textarea required className="form-input min-h-[100px]" placeholder="Describe your mission..."></textarea>
-              </div>
-              
-              <button type="submit" className="form-submit" style={{ background: 'var(--green)' }}>
-                🤝 Submit NGO Application
-              </button>
-            </form>
-          </div>
-        )}
+                <button type="submit" className="form-submit" style={{backgroundColor: 'var(--green)'}}>🤝 Submit NGO Application</button>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -689,21 +386,6 @@ const PartnerSection = ({ showToast }: { showToast: (m: string) => void }) => {
 
 export default function HomePage({ showToast }: { showToast: (m: string) => void }) {
   const [selectedNGOId, setSelectedNGOId] = useState<string | null>(null);
-
-  const brandPartners = [
-    { emoji: "🛍️", name: "H&M", offer: "15% Discount Coupon" },
-    { emoji: "👗", name: "Zara", offer: "Store Credits" },
-    { emoji: "👕", name: "Uniqlo", offer: "Exchange Voucher" },
-    { emoji: "👖", name: "Levi's", offer: "Discount on Denim" }
-  ];
-
-  const ngoPartners = [
-    { id: 'goonj', emoji: '🤝', name: 'Goonj', location: 'Pan India', desc: "India's largest clothing redistribution NGO — turns urban surplus into rural development." },
-    { id: 'feedingindia', emoji: '🍽️', name: 'Feeding India', location: 'Pan India', desc: "A Zomato initiative fighting hunger across India." },
-    { id: 'helpage', emoji: '🧓', name: 'HelpAge India', location: 'Pan India', desc: "Dignified care for India's elderly since 1978." },
-    { id: 'giveindia', emoji: '💚', name: 'GiveIndia', location: 'Pan India', desc: "India's most trusted donation platform connecting donors with verified NGOs." },
-  ];
-
   const selectedNGO = selectedNGOId ? NGO_DETAILS[selectedNGOId] : null;
 
   return (
@@ -714,118 +396,53 @@ export default function HomePage({ showToast }: { showToast: (m: string) => void
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-3">
-            <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">Trusted Network</h2>
-            <p className="text-[#1B2A22]/50 max-w-lg mx-auto font-medium text-sm">Join the ecosystem making fashion circular.</p>
+            <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">Our Partners</h2>
           </div>
-          
-          <div className="space-y-16">
-            <div className="space-y-6">
-              <h3 className="text-center font-bold text-stone-500 text-[0.8rem] uppercase tracking-[2px] mb-8">BRAND PARTNERS</h3>
-              <div className="flex flex-wrap justify-center gap-6">
-                {brandPartners.map((brand, idx) => (
-                  <div key={idx} className="bg-white border border-[#B7E4C7] rounded-[16px] p-4 flex flex-col items-center min-w-[180px] shadow-sm hover:-translate-y-1 hover:border-[#2D6A4F] transition-all cursor-default">
-                    <span className="text-2xl mb-2">{brand.emoji}</span>
-                    <span className="font-bold text-[#1B2A22] text-sm mb-1">{brand.name}</span>
-                    <span className="text-[#2D6A4F] font-bold text-[10px] uppercase tracking-wider">{brand.offer}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="h-[1px] bg-[#2D6A4F] opacity-20 w-full max-w-4xl mx-auto my-8"></div>
-
-            <div className="space-y-6">
-              <h3 className="text-center font-bold text-stone-500 text-[0.8rem] uppercase tracking-[2px] mb-8">NGO PARTNERS</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {ngoPartners.map(ngo => (
-                  <div 
-                    key={ngo.id} 
-                    onClick={() => setSelectedNGOId(ngo.id)}
-                    className="ngo-card bg-[#FEFAE0] p-6 rounded-[1.5rem] text-left border border-[#B7E4C7]/20 relative h-full flex flex-col"
-                  >
-                    <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-                    
-                    <h4 className="font-extrabold heading-font text-lg text-[#1B2A22] mb-1">{ngo.emoji} {ngo.name}</h4>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#2D6A4F] mb-1">{ngo.location}</p>
-                    <p className="text-xs text-[#1B2A22]/60 leading-tight flex-grow">{ngo.desc}</p>
-                    <div className="flex justify-end mt-4 items-center gap-1 text-[#2D6A4F] text-[0.75rem] font-semibold">
-                      Learn More →
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {['goonj', 'feedingindia', 'helpage', 'giveindia'].map((id) => {
+              const ngo = NGO_DETAILS[id];
+              return (
+                <div key={id} onClick={() => setSelectedNGOId(id)} className="ngo-card bg-[#FEFAE0] p-6 rounded-[1.5rem] border border-[#B7E4C7]/20 flex flex-col items-center text-center">
+                  <span className="text-4xl mb-3">{ngo.emoji}</span>
+                  <h4 className="font-bold text-lg">{ngo.title}</h4>
+                  <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">View Details</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <EnhancedKPIs />
-      
       <section className="py-24 bg-[#FEFAE0]">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">Calculate Your Earnings</h2>
-            <p className="text-[#1B2A22]/50 font-medium text-sm">Toggle between paths to see exactly what you'll earn.</p>
-          </div>
+          <h2 className="text-center text-3xl font-bold mb-12">Earnings Calculator</h2>
           <CalculatorUI />
         </div>
       </section>
 
       <PartnerSection showToast={showToast} />
 
-      {/* NGO Detail Modal */}
-      <div className={`ngo-modal-overlay ${selectedNGO ? 'open' : ''}`} onClick={(e) => { if(e.target === e.currentTarget) setSelectedNGOId(null); }}>
+      {/* NGO Modal */}
+      <div className={`ngo-modal-overlay ${selectedNGO ? 'open' : ''}`} onClick={(e) => e.target === e.currentTarget && setSelectedNGOId(null)}>
         {selectedNGO && (
-          <div className="ngo-modal relative">
-            <button className="close-modal" onClick={() => setSelectedNGOId(null)}>✕</button>
-            
-            <div className="h-[140px] w-full flex flex-col items-center justify-center" style={{ background: selectedNGO.banner }}>
-              <div className="text-[2.5rem] mb-1">{selectedNGO.emoji}</div>
-              <h2 className="text-white text-[1.8rem] font-[800] leading-none mb-1">{selectedNGO.title}</h2>
-              <p className="text-white/80 text-[0.9rem] font-medium">{selectedNGO.tagline}</p>
-            </div>
-
-            <div className="p-8 md:p-10">
-              <div className="space-y-8">
-                <section>
-                  <h3 className="text-[0.8rem] tracking-[2px] font-[700] uppercase mb-3 flex items-center gap-2" style={{ color: selectedNGO.color }}>🎯 THE MISSION</h3>
-                  <p className="text-[0.92rem] leading-[1.8] text-[#1B2A22]">{selectedNGO.mission}</p>
-                </section>
-
-                <section>
-                  <h3 className="text-[0.8rem] tracking-[2px] font-[700] uppercase mb-3 flex items-center gap-2" style={{ color: selectedNGO.color }}>📊 VERIFIED IMPACT</h3>
-                  <div className="grid grid-cols-3 gap-3">
-                    {selectedNGO.impact.map((stat: any, i: number) => (
-                      <div key={i} className="rounded-[12px] p-4 text-center" style={{ background: selectedNGO.bgColor }}>
-                        <div className="text-[1.4rem] font-[800]" style={{ color: selectedNGO.color }}>{stat.num}</div>
-                        <div className="text-[0.75rem] text-[#6B7280] mt-1">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section>
-                  <h3 className="text-[0.8rem] tracking-[2px] font-[700] uppercase mb-3 flex items-center gap-2" style={{ color: selectedNGO.color }}>🏆 RECOGNITION</h3>
-                  <ul className="space-y-2">
-                    {selectedNGO.recognition.map((rec: string, i: number) => (
-                      <li key={i} className="text-[0.88rem] text-[#1B2A22] flex items-start gap-2">
-                        <span style={{ color: selectedNGO.color }}>✓</span> {rec}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-
-                <a 
-                  href={selectedNGO.website} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block w-full text-center text-white py-4 rounded-full font-[700] text-lg transition-all hover:opacity-90 shadow-lg"
-                  style={{ background: selectedNGO.color }}
-                >
-                  Visit {selectedNGO.title} Official Website →
-                </a>
-              </div>
-            </div>
+          <div className="ngo-modal">
+             <button className="close-modal" onClick={() => setSelectedNGOId(null)}>✕</button>
+             <div className="h-40 flex flex-col items-center justify-center" style={{background: selectedNGO.banner}}>
+               <span className="text-5xl">{selectedNGO.emoji}</span>
+               <h2 className="text-white text-3xl font-black mt-2">{selectedNGO.title}</h2>
+             </div>
+             <div className="p-8 space-y-6">
+               <p className="text-sm font-medium leading-relaxed">{selectedNGO.mission}</p>
+               <div className="grid grid-cols-3 gap-3">
+                 {selectedNGO.impact.map((i: any, idx: number) => (
+                   <div key={idx} className="bg-stone-50 p-3 rounded-xl text-center">
+                     <p className="font-black text-emerald-600 text-lg">{i.num}</p>
+                     <p className="text-[8px] text-stone-400 font-bold uppercase">{i.label}</p>
+                   </div>
+                 ))}
+               </div>
+               <a href={selectedNGO.website} target="_blank" rel="noopener noreferrer" className="block w-full bg-[#2D6A4F] text-white py-4 rounded-full text-center font-bold">Visit Official Website</a>
+             </div>
           </div>
         )}
       </div>

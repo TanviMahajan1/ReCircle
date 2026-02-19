@@ -15,15 +15,15 @@ import {
 } from 'lucide-react';
 
 // Pages
-import HomePage from './pages/HomePage';
-import DonatePage from './pages/DonatePage';
-import BrandExchangePage from './pages/BrandExchangePage';
-import ImpactDashboard from './pages/ImpactDashboard';
-import PartnersPage from './pages/PartnersPage';
-import AboutPage from './pages/AboutPage';
-import HowItWorksPage from './pages/HowItWorksPage';
-import ContactPage from './pages/ContactPage';
-import DashboardPage from './pages/DashboardPage';
+import HomePage from './pages/HomePage.tsx';
+import DonatePage from './pages/DonatePage.tsx';
+import BrandExchangePage from './pages/BrandExchangePage.tsx';
+import ImpactDashboard from './pages/ImpactDashboard.tsx';
+import PartnersPage from './pages/PartnersPage.tsx';
+import AboutPage from './pages/AboutPage.tsx';
+import HowItWorksPage from './pages/HowItWorksPage.tsx';
+import ContactPage from './pages/ContactPage.tsx';
+import DashboardPage from './pages/DashboardPage.tsx';
 
 const Logo = ({ sizeClass = "text-[1.4rem]" }: { sizeClass?: string }) => (
   <div className="flex items-center gap-2">
@@ -70,8 +70,17 @@ const Navbar = () => {
     { name: 'How You Earn', path: '/exchange' },
     { name: 'Partners', path: '/partners' },
     { name: 'Impact', path: '/impact' },
-    { name: 'Become a Partner', path: '/#partner', isExternal: false }
+    { name: 'Become a Partner', path: '#partner', isHash: true }
   ];
+
+  const handleScrollToPartner = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById('partner');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-[#B7E4C7]/30 h-20">
@@ -83,10 +92,11 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-10">
           {navLinks.map((link) => (
-            link.path.startsWith('/#') ? (
+            link.isHash ? (
               <a
                 key={link.path}
-                href={link.path.substring(1)}
+                href={link.path}
+                onClick={handleScrollToPartner}
                 className="text-sm font-semibold tracking-wide hover:text-[#2D6A4F] transition-colors text-[#1B2A22]/70"
               >
                 {link.name}
@@ -124,11 +134,11 @@ const Navbar = () => {
       <div className={`fixed inset-0 top-20 bg-[#FEFAE0] transition-transform duration-300 md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 flex flex-col gap-6">
           {navLinks.map((link) => (
-             link.path.startsWith('/#') ? (
+            link.isHash ? (
               <a
                 key={link.path}
-                href={link.path.substring(1)}
-                onClick={() => setIsOpen(false)}
+                href={link.path}
+                onClick={handleScrollToPartner}
                 className="text-2xl font-bold heading-font text-[#1B2A22]"
               >
                 {link.name}
@@ -188,24 +198,14 @@ export default function App() {
                 Your old clothes deserve a second life. We handle 100% of logistics—pickup, sorting, and delivery.
               </p>
               <div className="flex gap-4">
-                <a 
-                  href="https://instagram.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-[38px] h-[38px] bg-white/10 rounded-full flex items-center justify-center hover:bg-[#2D6A4F] cursor-pointer transition-colors"
-                >
+                <a href="#" className="w-[38px] h-[38px] bg-white/10 rounded-full flex items-center justify-center hover:bg-[#2D6A4F] cursor-pointer transition-colors">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                     <circle cx="12" cy="12" r="4"/>
                     <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
                   </svg>
                 </a>
-                <a 
-                  href="https://linkedin.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-[38px] h-[38px] bg-white/10 rounded-full flex items-center justify-center hover:bg-[#2D6A4F] cursor-pointer transition-colors"
-                >
+                <a href="#" className="w-[38px] h-[38px] bg-white/10 rounded-full flex items-center justify-center hover:bg-[#2D6A4F] cursor-pointer transition-colors">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                     <rect x="2" y="9" width="4" height="12"/>

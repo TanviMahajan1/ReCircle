@@ -1,7 +1,10 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 
-const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const getAI = () => {
+  // Polyfill or safety check for process.env
+  const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : '';
+  return new GoogleGenAI({ apiKey: apiKey || '' });
+};
 
 export async function analyzeClothingImage(base64Image: string): Promise<any> {
   const ai = getAI();

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -10,7 +9,7 @@ import {
   Zap,
   Tag
 } from 'lucide-react';
-import { BRANDS } from '../constants';
+import { BRANDS } from '../constants.tsx';
 
 export default function BrandExchangePage() {
   return (
@@ -76,7 +75,7 @@ export default function BrandExchangePage() {
               <div className="space-y-6">
                 {[
                   { step: 1, text: 'Select "Brand Exchange" path when booking.' },
-                  { step: 2, text: 'Our rider collects items for a ₹50 fee.' },
+                  { step: 2, text: 'Our rider collects items for a ₹100-200 (location-based) fee.' },
                   { step: 3, text: 'We quality-check and deliver to partner brands.' },
                   { step: 4, text: 'Receive your unique voucher code via SMS/Email.' },
                 ].map(item => (
@@ -101,7 +100,6 @@ export default function BrandExchangePage() {
                 </div>
                 <p className="text-xs text-stone-400 text-center">Use this at checkout on zara.com or in-stores.</p>
               </div>
-              {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 bg-emerald-500 text-white p-4 rounded-2xl shadow-lg -rotate-12 font-bold">
                 Save ₹500
               </div>
