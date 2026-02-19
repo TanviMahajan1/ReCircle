@@ -193,11 +193,11 @@ const Hero = () => (
           Your old clothes deserve a <em className="text-[#2D6A4F] not-italic relative inline-block">second life<span className="absolute bottom-1 left-0 w-full h-2 bg-[#E9C46A]/30 -z-10"></span></em>
         </h1>
         <p className="text-lg text-[#1B2A22]/70 max-w-lg leading-relaxed font-medium">
-          Give away your used clothes and earn cash, coupons, or points in return. We handle pickup, sorting, and delivery — you just pack a bag.
+          Give away your used clothes and earn cash, coupons, or points in return. We handle pickup, sorting, and delivery — you just pack a bag. Pickup fee: ₹100-200 based on your location.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 pt-2">
           <Link to="/donate" className="bg-[#2D6A4F] text-white px-8 py-4 rounded-full text-lg font-bold shadow-xl hover:bg-[#1B2A22] transition-all flex items-center justify-center gap-2 group btn-shadow">
-            Schedule Pickup — ₹50 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            Schedule Pickup — Starting ₹100 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link to="/how-it-works" className="bg-white text-[#1B2A22] border-2 border-[#1B2A22]/10 px-8 py-4 rounded-full text-lg font-bold shadow-sm hover:border-[#2D6A4F] transition-all flex items-center justify-center">
             How It Works
@@ -228,10 +228,10 @@ const HowItWorks = () => {
             <div className="flex-1 space-y-4">
               <h3 className="text-2xl font-bold heading-font text-[#1B2A22]">Book Your Pickup</h3>
               <p className="text-sm text-[#1B2A22]/60 leading-relaxed font-medium">
-                Schedule a convenient time slot in under 2 minutes. Pack your used clothes in any bag at home. Pay ₹50 flat pickup fee online.
+                Schedule a convenient time slot in under 2 minutes. Pack your used clothes in any bag at home. Final price shown after entering your pin code.
               </p>
               <div className="pt-2">
-                <span className="bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">₹50 flat fee</span>
+                <span className="bg-[#2D6A4F] text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">₹100-200 based on location</span>
                 <p className="text-[10px] text-[#1B2A22]/40 font-bold mt-2 uppercase tracking-tighter">UPI · Cards · Net Banking accepted</p>
               </div>
             </div>
@@ -342,15 +342,14 @@ const CalculatorUI = () => {
   const [bags, setBags] = useState(2);
   const [activePath, setActivePath] = useState<'brand' | 'ngo'>('brand');
 
-  // Updated formulas: 1 bag = approx 5 clothes
   const itemsCount = bags * 5;
   const brandCoupon = bags * 150;
-  const brandNet = brandCoupon - 50;
+  const avgFee = 150;
+  const brandNet = brandCoupon - avgFee;
 
   const ngoCredits = bags * 200;
-  const ngoTaxBenefit = bags * 100;
-  const ngoFamilies = bags * 2;
   const ngoCreditCashValue = Math.round(ngoCredits / 10);
+  const ngoTaxBenefit = bags * 100;
 
   return (
     <div className="bg-[#1B2A22] text-white p-8 md:p-12 rounded-[3.5rem] shadow-2xl border border-white/5 space-y-10">
@@ -386,7 +385,6 @@ const CalculatorUI = () => {
       </div>
 
       <div className="relative min-h-[340px] md:min-h-[300px]">
-        {/* Brand Results Panel */}
         <div className={`calc-results-panel ${activePath === 'brand' ? 'visible' : 'hidden'}`}>
           <div className="bg-[rgba(244,162,97,0.08)] border border-[rgba(244,162,97,0.2)] rounded-[20px] p-8">
             <div className="flex items-center gap-2 mb-6">
@@ -410,13 +408,13 @@ const CalculatorUI = () => {
               </div>
               <div className="bg-white/5 rounded-[14px] p-5 text-center">
                 <div className="text-[1.2rem] mb-2">💸</div>
-                <div className="text-[1.4rem] font-extrabold opacity-50">−₹50</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Pickup fee</div>
+                <div className="text-[1.4rem] font-extrabold opacity-50">−₹100-200</div>
+                <div className="text-[0.78rem] opacity-50 mt-1">Pickup fee*</div>
               </div>
               <div className="bg-white/5 rounded-[14px] p-5 text-center">
                 <div className="text-[1.2rem] mb-2">🎉</div>
-                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{brandNet}</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Net value</div>
+                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{brandNet}*</div>
+                <div className="text-[0.78rem] opacity-50 mt-1">Net value (avg)</div>
               </div>
             </div>
             
@@ -426,7 +424,6 @@ const CalculatorUI = () => {
           </div>
         </div>
 
-        {/* NGO Results Panel */}
         <div className={`calc-results-panel ${activePath === 'ngo' ? 'visible' : 'hidden'}`}>
           <div className="bg-[rgba(45,106,79,0.08)] border border-[rgba(45,106,79,0.3)] rounded-[20px] p-8">
             <div className="flex items-center gap-2 mb-6">
@@ -449,13 +446,13 @@ const CalculatorUI = () => {
                 <div className="text-[0.78rem] opacity-50 mt-1">Tax benefit (est. 80G)</div>
               </div>
               <div className="bg-white/5 rounded-[14px] p-5 text-center">
-                <div className="text-[1.2rem] mb-2">👨‍👩‍👧</div>
-                <div className="text-[1.4rem] font-extrabold text-[#B7E4C7]">~{ngoFamilies}</div>
-                <div className="text-[0.78rem] opacity-50 mt-1">Families helped</div>
+                <div className="text-[1.2rem] mb-2">💸</div>
+                <div className="text-[1.4rem] font-extrabold opacity-50">−₹100-200</div>
+                <div className="text-[0.78rem] opacity-50 mt-1">Pickup fee*</div>
               </div>
               <div className="bg-white/5 rounded-[14px] p-5 text-center">
                 <div className="text-[1.2rem] mb-2">💰</div>
-                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{ngoCreditCashValue}</div>
+                <div className="text-[1.4rem] font-extrabold text-[#6FCF97]">₹{ngoCreditCashValue}*</div>
                 <div className="text-[0.78rem] opacity-50 mt-1">Credit cash value</div>
               </div>
             </div>
@@ -468,9 +465,8 @@ const CalculatorUI = () => {
       </div>
 
       <p className="text-center text-[0.75rem] opacity-30 mt-8 italic">
-        * Estimates based on average clothing quality. 
-        Actual earnings may vary after quality check. 
-        Tax benefit is indicative — consult your CA.
+        * Exact fee depends on your location. See price at checkout. 
+        Estimates based on average clothing quality.
       </p>
 
       <div className="pt-8 flex justify-center">
@@ -485,7 +481,213 @@ const CalculatorUI = () => {
   );
 };
 
-export default function HomePage() {
+const PartnerSection = ({ showToast }: { showToast: (m: string) => void }) => {
+  const [partnerType, setPartnerType] = useState<'brand' | 'ngo'>('brand');
+
+  const handleBrandSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    inputs.forEach(input => {
+      if (!(input as any).value) isValid = false;
+    });
+    
+    if (!isValid) {
+      alert('Please fill in all required fields marked with *');
+      return;
+    }
+    
+    showToast('✅ Brand application submitted! We\'ll reach out soon.');
+    form.reset();
+  };
+
+  const handleNGOSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    inputs.forEach(input => {
+      if (!(input as any).value) isValid = false;
+    });
+
+    if (!isValid) {
+      alert('Please fill in all required fields marked with *');
+      return;
+    }
+
+    showToast('✅ NGO application submitted! We\'ll reach out soon.');
+    form.reset();
+  };
+
+  return (
+    <section className="py-24 bg-white" id="partner">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center space-y-4 mb-12">
+          <div className="bg-[#D8F3DC] text-[#2D6A4F] px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[3px] w-fit mx-auto">Join ReCircle</div>
+          <h2 className="text-3xl md:text-5xl font-bold heading-font text-[#1B2A22]">Partner With Us</h2>
+          <p className="text-[#1B2A22]/50 font-medium text-sm max-w-xl mx-auto">Whether you're a brand committed to sustainability or an NGO serving communities — let's collaborate.</p>
+        </div>
+        
+        <div className="calc-toggle">
+          <button 
+            className={`partner-tab ${partnerType === 'brand' ? 'active' : ''}`} 
+            onClick={() => setPartnerType('brand')}
+          >
+            🛍️ I'm a Brand
+          </button>
+          <button 
+            className={`partner-tab ${partnerType === 'ngo' ? 'active' : ''}`} 
+            onClick={() => setPartnerType('ngo')}
+          >
+            🤝 I'm an NGO
+          </button>
+        </div>
+
+        {partnerType === 'brand' ? (
+          <div className="max-w-[800px] mx-auto bg-[#FEFAE0] rounded-[2.5rem] p-8 md:p-12 border border-black/5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <h3 className="text-xl font-bold text-[#1B2A22] mb-1">Brand Partnership Application</h3>
+            <p className="text-xs text-[#1B2A22]/50 mb-8">Join brands like H&M, Zara, and Levi's in the circular fashion movement.</p>
+            
+            <form onSubmit={handleBrandSubmit}>
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Brand Name *</label>
+                  <input type="text" required className="form-input" placeholder="Your brand name" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Industry *</label>
+                  <select required className="form-select">
+                    <option value="">Select industry</option>
+                    <option>Fashion & Apparel</option>
+                    <option>Footwear</option>
+                    <option>Accessories</option>
+                    <option>Home Textiles</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Contact Person Name *</label>
+                  <input type="text" required className="form-input" placeholder="Full name" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Designation *</label>
+                  <input type="text" required className="form-input" placeholder="e.g., Sustainability Manager" />
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Email *</label>
+                  <input type="email" required className="form-input" placeholder="contact@brand.com" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Phone *</label>
+                  <input type="tel" required className="form-input" placeholder="+91 98765 43210" />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label">Number of Stores in India *</label>
+                <select required className="form-select">
+                  <option value="">Select store count</option>
+                  <option>1-5 stores</option>
+                  <option>6-20 stores</option>
+                  <option>21-50 stores</option>
+                  <option>50+ stores</option>
+                  <option>Online only</option>
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label">Partnership Interest *</label>
+                <div className="flex flex-col gap-2 mt-2">
+                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
+                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
+                    <span>In-store clothing collection program</span>
+                  </label>
+                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
+                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
+                    <span>Provide discount coupons for donors</span>
+                  </label>
+                  <label className="flex items-center gap-3 text-sm font-semibold cursor-pointer">
+                    <input type="checkbox" className="w-5 h-5 rounded border-stone-200 accent-[#2D6A4F]" />
+                    <span>ESG reporting and sustainability metrics</span>
+                  </label>
+                </div>
+              </div>
+              
+              <button type="submit" className="form-submit">
+                🛍️ Submit Brand Application
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="max-w-[800px] mx-auto bg-[#D8F3DC]/30 rounded-[2.5rem] p-8 md:p-12 border border-[#2D6A4F]/10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <h3 className="text-xl font-bold text-[#1B2A22] mb-1">NGO Partnership Application</h3>
+            <p className="text-xs text-[#1B2A22]/50 mb-8">Join NGOs like Goonj, Feeding India, and HelpAge India in receiving quality clothing donations.</p>
+            
+            <form onSubmit={handleNGOSubmit}>
+              <div className="form-group">
+                <label className="form-label">NGO Name *</label>
+                <input type="text" required className="form-input" placeholder="Your organization name" />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Registration Number *</label>
+                  <input type="text" required className="form-input" placeholder="12A / 80G / Trust Reg." />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Year Established *</label>
+                  <input type="number" required className="form-input" placeholder="e.g., 2015" />
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label">Email *</label>
+                  <input type="email" required className="form-input" placeholder="contact@ngo.org" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Phone *</label>
+                  <input type="tel" required className="form-input" placeholder="+91 98765 43210" />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label className="form-label">Primary Cause *</label>
+                <select required className="form-select">
+                  <option value="">Select primary cause</option>
+                  <option>Poverty & Livelihood</option>
+                  <option>Education</option>
+                  <option>Healthcare</option>
+                  <option>Elderly Care</option>
+                  <option>Disaster Relief</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Tell Us About Your Work *</label>
+                <textarea required className="form-input min-h-[100px]" placeholder="Describe your mission..."></textarea>
+              </div>
+              
+              <button type="submit" className="form-submit" style={{ background: 'var(--green)' }}>
+                🤝 Submit NGO Application
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default function HomePage({ showToast }: { showToast: (m: string) => void }) {
   const [selectedNGOId, setSelectedNGOId] = useState<string | null>(null);
 
   const brandPartners = [
@@ -496,10 +698,10 @@ export default function HomePage() {
   ];
 
   const ngoPartners = [
-    { id: 'goonj', emoji: '🤝', name: 'Goonj', location: 'Pan India', desc: "India's largest clothing redistribution NGO — turns urban surplus into rural dignity." },
-    { id: 'feedingindia', emoji: '🍽️', name: 'Feeding India', location: 'Pan India', desc: "Fighting hunger and clothing poverty for underprivileged communities across urban India." },
-    { id: 'helpage', emoji: '🧓', name: 'HelpAge India', location: 'Pan India', desc: "Supporting elderly citizens with clothing, healthcare, and dignity programs nationwide." },
-    { id: 'giveindia', emoji: '💚', name: 'GiveIndia', location: 'Pan India', desc: "India's largest donation platform connecting verified NGOs with donors for maximum impact." },
+    { id: 'goonj', emoji: '🤝', name: 'Goonj', location: 'Pan India', desc: "India's largest clothing redistribution NGO — turns urban surplus into rural development." },
+    { id: 'feedingindia', emoji: '🍽️', name: 'Feeding India', location: 'Pan India', desc: "A Zomato initiative fighting hunger across India." },
+    { id: 'helpage', emoji: '🧓', name: 'HelpAge India', location: 'Pan India', desc: "Dignified care for India's elderly since 1978." },
+    { id: 'giveindia', emoji: '💚', name: 'GiveIndia', location: 'Pan India', desc: "India's most trusted donation platform connecting donors with verified NGOs." },
   ];
 
   const selectedNGO = selectedNGOId ? NGO_DETAILS[selectedNGOId] : null;
@@ -568,6 +770,8 @@ export default function HomePage() {
           <CalculatorUI />
         </div>
       </section>
+
+      <PartnerSection showToast={showToast} />
 
       {/* NGO Detail Modal */}
       <div className={`ngo-modal-overlay ${selectedNGO ? 'open' : ''}`} onClick={(e) => { if(e.target === e.currentTarget) setSelectedNGOId(null); }}>

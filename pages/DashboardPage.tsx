@@ -1,8 +1,5 @@
-
-import React from 'react';
-// Fix: Added Link to imports
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// Fix: Consolidated and added User icon
 import { 
   Package, 
   Truck, 
@@ -13,14 +10,49 @@ import {
   ChevronRight,
   Clock,
   Heart,
-  User
+  User,
+  Loader2
 } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 
 export default function DashboardPage() {
-  const history = [
-    { id: '#REC-99281', date: 'Oct 12, 2023', status: 'Delivered', type: 'NGO Donation', impact: '12 items' },
-    { id: '#REC-81722', date: 'Sep 28, 2023', status: 'Sorted', type: 'Brand Exchange', impact: '5 items' },
-  ];
+  const [history, setHistory] = useState<any[]>([]);
+  const [activePickup, setActivePickup] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchDashboardData() {
+      try {
+        const { data, error } = await supabase
+          .from('pickups')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (data) {
+          setHistory(data);
+          // For demo purposes, pick the first 'scheduled' pickup as active
+          const active = data.find(p => p.status === 'scheduled');
+          if (active) setActivePickup(active);
+        }
+      } catch (err: any) {
+        console.error('Error fetching dashboard:', err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchDashboardData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+        <Loader2 className="animate-spin text-emerald-600" size={40} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-stone-50 py-12">
@@ -62,28 +94,39 @@ export default function DashboardPage() {
         {/* Main Content */}
         <div className="lg:col-span-9 space-y-8">
           {/* Active Status */}
-          <div className="bg-emerald-900 text-white p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden">
-            <div className="relative z-10 flex flex-col md:flex-row justify-between md:items-center gap-6">
-              <div className="space-y-2">
-                <span className="bg-emerald-800 text-emerald-400 text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md">In Progress</span>
-                <h2 className="text-2xl font-bold">Active Pickup #REC-10293</h2>
-                <p className="text-emerald-100 text-sm">Scheduled for Tomorrow, 3 PM - 6 PM</p>
+          {activePickup ? (
+            <div className="bg-emerald-900 text-white p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+              <div className="relative z-10 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                <div className="space-y-2">
+                  <span className="bg-emerald-800 text-emerald-400 text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md">
+                    {activePickup.status === 'scheduled' ? 'In Progress' : activePickup.status.toUpperCase()}
+                  </span>
+                  <h2 className="text-2xl font-bold">Active Pickup {activePickup.order_id}</h2>
+                  <p className="text-emerald-100 text-sm">Scheduled for {activePickup.pickup_date}</p>
+                </div>
+                <div className="flex gap-4">
+                  <button className="bg-white text-emerald-900 px-6 py-3 rounded-xl font-bold hover:bg-emerald-50 transition-colors">Track Rider</button>
+                  <button className="bg-emerald-800 border border-emerald-700 px-6 py-3 rounded-xl font-bold">Edit Booking</button>
+                </div>
               </div>
-              <div className="flex gap-4">
-                <button className="bg-white text-emerald-900 px-6 py-3 rounded-xl font-bold hover:bg-emerald-50 transition-colors">Track Rider</button>
-                <button className="bg-emerald-800 border border-emerald-700 px-6 py-3 rounded-xl font-bold">Edit Booking</button>
+              <div className="mt-8 relative h-2 bg-emerald-800 rounded-full overflow-hidden">
+                <div className="absolute h-full w-1/4 bg-emerald-400"></div>
+              </div>
+              <div className="flex justify-between mt-3 text-[10px] font-bold text-emerald-300 uppercase tracking-widest">
+                <span>Booked</span>
+                <span>Pickup Scheduled</span>
+                <span>Sorted</span>
+                <span>Delivered</span>
               </div>
             </div>
-            <div className="mt-8 relative h-2 bg-emerald-800 rounded-full overflow-hidden">
-              <div className="absolute h-full w-1/3 bg-emerald-400"></div>
+          ) : (
+            <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-stone-100 text-center space-y-4">
+              <Package size={48} className="mx-auto text-stone-200" />
+              <h3 className="text-xl font-bold text-stone-800">No Active Pickups</h3>
+              <p className="text-stone-400 text-sm">You don't have any pickups in progress right now.</p>
+              <Link to="/donate" className="inline-block bg-[#2D6A4F] text-white px-8 py-3 rounded-full font-bold shadow-lg">Schedule One Now</Link>
             </div>
-            <div className="flex justify-between mt-3 text-[10px] font-bold text-emerald-300 uppercase tracking-widest">
-              <span>Booked</span>
-              <span>Pickup Scheduled</span>
-              <span>Sorted</span>
-              <span>Delivered</span>
-            </div>
-          </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Vouchers */}
@@ -113,20 +156,22 @@ export default function DashboardPage() {
                 <button className="text-stone-400 font-bold text-sm">Download All</button>
               </div>
               <div className="space-y-4">
-                {history.map((item, idx) => (
+                {history.length > 0 ? history.map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center group cursor-pointer">
                     <div className="flex gap-4 items-center">
                       <div className="bg-emerald-50 p-3 rounded-xl text-emerald-600">
                         <History size={20} />
                       </div>
                       <div>
-                        <p className="font-bold text-stone-800 text-sm">{item.type}</p>
-                        <p className="text-[10px] text-stone-400 font-bold">{item.date} • {item.impact}</p>
+                        <p className="font-bold text-stone-800 text-sm">{item.path === 'brand' ? 'Brand Exchange' : 'NGO Donation'}</p>
+                        <p className="text-[10px] text-stone-400 font-bold">{new Date(item.pickup_date).toLocaleDateString()} • {item.bags} bags • {item.order_id}</p>
                       </div>
                     </div>
                     <ChevronRight size={18} className="text-stone-300 group-hover:text-stone-800 group-hover:translate-x-1 transition-all" />
                   </div>
-                ))}
+                )) : (
+                  <p className="text-stone-400 text-sm italic">No history yet.</p>
+                )}
               </div>
             </div>
           </div>

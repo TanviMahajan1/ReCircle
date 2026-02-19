@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
@@ -29,14 +28,11 @@ import DashboardPage from './pages/DashboardPage';
 const Logo = ({ sizeClass = "text-[1.4rem]" }: { sizeClass?: string }) => (
   <div className="flex items-center gap-2">
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Outer circular arrow */}
       <path d="M16 4 C10 4 5 8.5 4.5 14.5" stroke="#2D6A4F" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
       <path d="M4.5 14.5 C4 20.5 8 26 14 27.5" stroke="#2D6A4F" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
       <path d="M14 27.5 C20 29 26 25 27.5 19" stroke="#40916C" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
       <path d="M27.5 19 C29 13 25 7.5 19.5 5.5" stroke="#40916C" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-      {/* Arrow head at top right */}
       <path d="M17 3 L20 6 L16.5 7" stroke="#2D6A4F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      {/* Small leaf in center */}
       <path d="M16 10 C16 10 12 14 14 18 C15 20 17 20 18 18 C20 14 16 10 16 10Z" fill="#40916C" opacity="0.9"/>
       <path d="M16 10 L16 18" stroke="#B7E4C7" strokeWidth="1" strokeLinecap="round"/>
     </svg>
@@ -74,6 +70,7 @@ const Navbar = () => {
     { name: 'How You Earn', path: '/exchange' },
     { name: 'Partners', path: '/partners' },
     { name: 'Impact', path: '/impact' },
+    { name: 'Become a Partner', path: '/#partner', isExternal: false }
   ];
 
   return (
@@ -86,15 +83,25 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-10">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-sm font-semibold tracking-wide hover:text-[#2D6A4F] transition-colors ${
-                location.pathname === link.path ? 'text-[#2D6A4F]' : 'text-[#1B2A22]/70'
-              }`}
-            >
-              {link.name}
-            </Link>
+            link.path.startsWith('/#') ? (
+              <a
+                key={link.path}
+                href={link.path.substring(1)}
+                className="text-sm font-semibold tracking-wide hover:text-[#2D6A4F] transition-colors text-[#1B2A22]/70"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-sm font-semibold tracking-wide hover:text-[#2D6A4F] transition-colors ${
+                  location.pathname === link.path ? 'text-[#2D6A4F]' : 'text-[#1B2A22]/70'
+                }`}
+              >
+                {link.name}
+              </Link>
+            )
           ))}
         </div>
 
@@ -117,14 +124,25 @@ const Navbar = () => {
       <div className={`fixed inset-0 top-20 bg-[#FEFAE0] transition-transform duration-300 md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 flex flex-col gap-6">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setIsOpen(false)}
-              className="text-2xl font-bold heading-font text-[#1B2A22]"
-            >
-              {link.name}
-            </Link>
+             link.path.startsWith('/#') ? (
+              <a
+                key={link.path}
+                href={link.path.substring(1)}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-bold heading-font text-[#1B2A22]"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-bold heading-font text-[#1B2A22]"
+              >
+                {link.name}
+              </Link>
+            )
           ))}
           <Link
             to="/donate"
@@ -150,7 +168,7 @@ export default function App() {
         <Navbar />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage showToast={showToast} />} />
             <Route path="/donate" element={<DonatePage showToast={showToast} />} />
             <Route path="/exchange" element={<BrandExchangePage />} />
             <Route path="/impact" element={<ImpactDashboard />} />
@@ -202,6 +220,7 @@ export default function App() {
                 <li><Link to="/how-it-works" className="hover:text-emerald-400 font-semibold">How It Works</Link></li>
                 <li><Link to="/exchange" className="hover:text-emerald-400 font-semibold">How You Earn</Link></li>
                 <li><Link to="/donate" className="hover:text-emerald-400 font-semibold">Schedule Pickup</Link></li>
+                <li><a href="#partner" className="hover:text-emerald-400 font-semibold">Become a Partner</a></li>
               </ul>
             </div>
             <div>
